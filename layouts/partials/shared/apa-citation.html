@@ -1,0 +1,15 @@
+<p>
+  {{ .Params.author_surname }}, {{ .Params.author_first_names }}
+  {{ if.Params.other_authors }}, et al
+  {{ else }}
+    {{ if.Params.second_author }}
+      {{ if.Params.third_author }}, {{ .Params.second_author }} & {{ .Params.third_author }}
+      {{ else }}
+       & {{ .Params.second_author }}{{ end }}{{ end }}{{ end }}.
+       {{ if eq .Params.pubtype "journal" }}&#40;{{ .Params.publishdate | time.Format "2006" }}&#41;. {{ .Params.title }}. <em>{{ .Params.journal_title }}, {{ .Params.volume }}</em>&#40;{{ .Params.issue }}&#41;, {{ .Params.firstpage }}-{{ .Params.lastpage }}.{{ end }}
+      {{ if eq .Params.pubtype "book" }}&#40;{{ .Params.publishdate | time.Format "2006" }}&#41;. <em>{{ .Params.title }}</em>. {{ .Params.publisher }}{{ end }}
+      {{ if eq .Params.pubtype "chapter" }}&#40;{{ .Params.publishdate | time.Format "2006" }}&#41;. {{ .Params.title }}. In {{ .Params.editor }} (Eds.), <em>{{ .Params.book_title }}</em> &#40;{{ .Params.firstpage }}-{{ .Params.lastpage }}&#41;. {{ .Params.publisher }}{{ end }}
+      {{ if eq .Params.pubtype "website" }}&#40;{{ .Params.publishdate | time.Format "2006, January 2" }}&#41; <em>{{ .Params.title }}</em>. {{ .Params.website_title }}. {{ .Params.url }}{{ end }}
+      {{ if eq .Params.pubtype "presentation" }}&#40;{{ .Params.publishdate | time.Format "2006" }}&#41; <em>{{ .Params.title }}</em>. {{ .Params.firstpage }}-{{ .Params.lastpage }}. {{ .Params.url }}{{ end }}
+      {{ if not ( or ( eq .Params.pubtype "journal" ) (eq .Params.pubtype "book" ) (eq .Params.pubtype "chapter" ) (eq .Params.pubtype "website" ) (eq .Params.pubtype "presentation" ) ) }}&#40;{{ .Params.publishdate | time.Format "2006" }}&#41;. {{ .Params.title }}.{{ end }}
+      {{ if .Params.doi }}<a href="https://doi.org/{{ .Params.doi }}">https://doi.org/{{ .Params.doi }}</a>{{ end }}.</p>

@@ -1,0 +1,4 @@
+<section class="event-details cf pt5-ns pt4">
+  <h3 style="text-transform: uppercase;">APA Citation</h3>
+  <p>{{ if .Params.publication_author }}{{ .Params.publication_author }} {{ end }}{{ if .Date }}({{ dateFormat "2006" .Date }}). {{end}}{{ if .Params.publication }}<cite>{{ .Params.publication }}</cite>{{if .Params.issue }}, {{ .Params.issue }}{{ end }}. {{ end }}{{ with .Params.publication_url }}<a href="{{ . | safeHTML }}" target="_blank">{{ end }}{{ .Params.publication_url }}{{ if .Params.publication_url }}</a>{{ end }}</p>
+</section>

@@ -1,0 +1,13 @@
+<p>
+  {{ .Params.author_surname }}, {{ .Params.author_first_names }}
+  {{ if.Params.other_authors }} and others
+  {{ else }}
+    {{ if.Params.second_author }}
+      {{ if.Params.third_author }}, {{ .Params.second_author }} and {{ .Params.third_author }}
+      {{ else }}
+       and {{ .Params.second_author }}{{ end }}{{ end }}{{ end }},
+       '{{ .Params.title }}'{{ if .Params.journal }}, <em>{{ .Params.journal_title }}</em>, {{ .Params.volume }}.{{ .Params.issue }} &#40;{{ .Params.year }}&#41;, {{ .Params.firstpage }}-{{ .Params.lastpage }}{{ end }}.
+      {{ if .Params.book }} &#40;{{ .Params.address }}&#58; {{ .Params.publisher }}, {{ .Params.year }}&#41;{{ end }}
+      {{ if .Params.chapter }}, in <em>{{ .Params.booktitle }}</em>, ed. by {{ .Params.editor }} &#40;{{ .Params.address }}&#58; {{ .Params.publisher }}, {{ .Params.year }}&#41;, pp. {{ .Params.pages }}{{ end }}
+      {{ if .Params.website }}{{ .Params.url }} &#91;accessed {{ .Params.date_accessed }}&#93;{{ end }}
+      {{ if .Params.presentation }}at {{ .Params.event }}, {{ .Params.address }}, {{ .Params.day }} {{ .Params.month }} {{ .Params.year }}{{ end }}</p>

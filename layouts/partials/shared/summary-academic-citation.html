@@ -1,0 +1,5 @@
+<p class="f7 db mv2">{{ if eq .Params.pubtype "journal" }}<em>{{ .Params.journal_title }}</em>, {{ .Params.volume }} &#40;{{ .Params.issue }}&#41;, {{ .Params.publishdate | time.Format "2006" }}, {{ .Params.firstpage }}-{{ .Params.lastpage }}{{ end }}
+      {{ if eq .Params.pubtype "book" }}&#40;{{ .Params.address }}&#58; {{ .Params.publisher }}, {{ .Params.publishdate | time.Format "2006" }}&#41;{{ end }}
+      {{ if eq .Params.pubtype "chapter" }}in <em>{{ .Params.booktitle }}</em>, ed. by {{ .Params.editor }} &#40;{{ .Params.address }}&#58; {{ .Params.publisher }}, {{ .Params.publishdate | time.Format "2006" }}&#41;, pp. {{ .Params.pages }}{{ end }}
+      {{ if eq .Params.pubtype "website" }}<em>{{ .Params.website_title }}</em>, {{ .Params.publishdate | time.Format "2006" }}, {{ .Params.url }}{{ end }}
+      {{ if eq .Params.pubtype "presentation" }}at {{ .Params.event }}, {{ .Params.address }}, {{ .Params.publishdate | time.Format "2 January 2006" }}{{ end }}.</p>

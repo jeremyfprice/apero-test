@@ -1,0 +1,32 @@
+{{ if eq .Params.citation_panel true }}
+<section class="ph4 pt0 pb4 pb0-l">
+
+<h4>Cite this publication:</h4>
+
+<div id="" class="panelset">
+ 
+<div class="panel">
+  <div class="panel-name">MHRA</div>
+  
+  <p>{{ partial "shared/mhra-citation.html" . }}</p>
+</div>
+<div class="panel">
+  <div class="panel-name">MLA</div>
+  
+  <p>{{ partial "shared/mla-citation.html" . }}</p>
+</div>
+<div class="panel">
+  <div class="panel-name">Chicago</div>
+  
+  <p>{{ partial "shared/chicago-citation.html" . }}</p>
+</div>
+
+<div class="panel">
+  <div class="panel-name">APA</div>
+  
+  <p>{{ partial "shared/apa-citation.html" . }}</p>
+</div>
+
+</div>
+</section>
+{{ end }}

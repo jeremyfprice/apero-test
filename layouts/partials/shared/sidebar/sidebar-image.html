@@ -1,0 +1,24 @@
+{{ $page := . }}                       <!--save current page-->
+{{ $section := $page.CurrentSection }} <!--save current section-->
+{{ $1920 := ($page.Resources.ByType "image").GetMatch "*1920*" }}
+{{ $1600 := ($page.Resources.ByType "image").GetMatch "*1600*" }}
+{{ $1280 := ($page.Resources.ByType "image").GetMatch "*1280*" }}
+{{ $960 := ($page.Resources.ByType "image").GetMatch "*960*" }}
+{{ $768 := ($page.Resources.ByType "image").GetMatch "*768*" }}
+{{ $640 := ($page.Resources.ByType "image").GetMatch "*640*" }}
+{{ $480 := ($page.Resources.ByType "image").GetMatch "*480*" }}
+{{ $320 := ($page.Resources.ByType "image").GetMatch "*320*" }}
+
+<!--featured sidebar image for the branch bundle-->
+{{ $branch := ($section.Resources.ByType "image").GetMatch "*sidebar*" }}
+<!--featured sidebar image for the leaf bundle-->
+{{ $leaf := ($page.Resources.ByType "image").GetMatch "*1280*" }}
+<!--use leaf sidebar, if exists; if not, use branch sidebar-->
+{{ $thumbnail := $leaf | default $branch }}
+<!--if neither, use first section sidebar-->
+{{ $first := (.FirstSection.Resources.ByType "image").GetMatch "*sidebar*" }}
+{{ $thumbnail := cond (eq $thumbnail nil) $first $thumbnail }}
+{{ with $thumbnail }}
+  <img src="{{ .RelPermalink }}" srcset="{{ if $320 }}{{ $320 }} 320w,{{ end }} {{ if $480 }}{{ $480 }} 480w,{{ end }} {{ if $640 }}{{ $640 }} 640w,{{ end }} {{ if $768 }}{{ $768 }} 768w,{{ end }} {{ if $960 }}{{ $960 }} 960w,{{ end }} {{ if $1280 }}{{ $1280 }} 1280w,{{ end }} {{ if $1600 }}{{ $1600 }} 1600w,{{ end }} {{ if $1920 }}{{ $1920 }} 1920w{{ end }}" sizes="(min-width: 768px) calc(33.333vw), calc(100vw)" class="db ma0" alt="{{ with $page.Params.sidebar }}{{ .image_alt_text }}{{ end }}">
+{{ end }}
+

@@ -1,0 +1,24 @@
+{{ range .Params.link_list }}
+ {{ if .image }}<li class="lh-copy pv2 ba bl-0 bt-0 br-0 b--dotted b--black-20">
+            <a href="{{ .url | safeURL }}" aria-label="{{ .name }}" {{ if .rel }}rel="{{ .rel }}"{{ end }} {{ if .target }}target="{{ .target }}"{{ end }} {{ if .type }}type="{{ .type }}"{{ end }}>
+        <img src="{{ .image }}" class="fa-lg fa-fw mr2" alt="{{ .name }} icon">{{ .name }}
+       </a></li>
+           {{ else if .icon }}
+ {{ $pack := or .icon_pack "fas" }}
+    {{ $pack_prefix := $pack }}
+    {{ if in (slice "fab" "fas" "far" "fal") $pack }}
+      {{ $pack_prefix = "fa" }}
+    {{ end }}
+  {{ $link := .url }}
+  {{ $color := .color }}
+  {{ $scheme := (urls.Parse $link).Scheme }}
+  {{ $target := "" }}
+  {{ if not $scheme }}
+    {{ $link = .url | relLangURL }}
+  {{ else if in (slice "http" "https") $scheme }}
+    {{ $target = "target=\"_blank\" rel=\"noopener\"" }}
+  {{ end }}
+  <li class="lh-copy pv2 ba bl-0 bt-0 br-0 b--dotted b--black-20">
+    <a href="{{ $link | safeURL }}" {{ $target | safeHTMLAttr }}>{{ with .icon }}<i class="{{ $pack }} {{ $pack_prefix }}-{{ . }} fa-lg fa-fw mr2" style="color:{{ $color }}"></i>{{ end }}{{ .name }}</a>
+  </li>
+{{ end }}{{ end }}

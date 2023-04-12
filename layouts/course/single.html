@@ -1,0 +1,32 @@
+{{ define "main" }}
+<main class="page-main pa4" role="main">
+  <section class="page-content mw7 center">
+    <article class="post-content pa0 ph4-l">
+      <header class="post-header">
+        <h1 class="f1 lh-solid measure-narrow mb3 fw4">{{ .Title }}</h1>
+        {{ if .Params.subtitle }}<h4 class="f4 mt0 mb4 lh-title measure">{{ .Params.subtitle }}</h4>{{ end }}
+        <p class="f6 measure lh-copy mv1" style="text-transform: uppercase;">{{ with .Params.level }}<i class="fas fa-chalkboard" style="color: #741A33;"></i>&nbsp; <a href="{{ "level/" | absURL }}{{ . | urlize }}">{{ . }}</a> &nbsp;{{ end }}{{ with .Params.tags }}&nbsp;&nbsp;<i class="fas fa-tags" style="color: #741A33;"></i>{{ range . }} <a href="{{ "tags/" | absURL }}{{ . | urlize }}">{{ . }}</a> {{ end }}{{ end }}</p>
+        {{ if .Params.show_post_date }}<p class="f7 db mv0 ttu">{{ .PublishDate.Format "January 2, 2006" }}</p>{{ end }}
+
+      {{ if .Params.links }}
+      <div class="ph0 pt5">
+        {{ partial "shared/btn-links.html" . }}
+      </div>
+      {{ end }}
+
+      </header>
+      <section class="post-body pt5 pb4">
+        {{ .Content }}
+        {{ .Scratch.Set "details" "closed" }}
+        {{ partial "shared/post-details.html" . }}
+      </section>
+      <footer class="post-footer">
+        {{ partial "shared/post-pagination.html" . }}
+      </footer>
+    </article>
+    {{ if .Params.show_comments }}
+      {{ partial "shared/comments.html" . }}
+    {{ end }}
+  </section>
+</main>
+{{ end }}
